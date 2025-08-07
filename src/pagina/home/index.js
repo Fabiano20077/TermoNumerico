@@ -14,7 +14,9 @@ export default function App() {
 
 
     console.log(nume)
-    const [p, setP] = useState()
+    const [c, setC] = useState(0);
+    const [l, setL] = useState(0);
+   const [index,setIndex] = useState(0);
 
     const [Lista, setLista] = useState([
         [``, '', '', ''],
@@ -27,18 +29,25 @@ export default function App() {
 
     const addLista = (num) => {
 
-
         setLista(pre => {
             const copia = pre.map(row => [...row]);
-            copia[0][p] = num;
+            copia[l][c] = num;
             return copia
         })
     }
 
-    const verificar =()=> {
+    const verificar = () => {
 
+       
+
+
+        const novoIndex = index + 1;
+        
+        setIndex(novoIndex);
+        console.log(index)
     }
-
+console.log(l)
+console.log(c)
     return (
         <View style={styles.container}>
             <View style={styles.Campo}>
@@ -53,33 +62,33 @@ export default function App() {
 
                             <FlatList
                                 data={Lista}
-                                keyExtractor={(item) => item.valor}
+                                keyExtractor={(_, index) => index.toString()}
                                 contentContainerStyle={{ padding: 20 }}
-                                renderItem={({ item, index }) => (
+                                renderItem={({ item }) => (
 
                                     <View style={styles.flat}>
 
 
-                                        <View style={styles.containeNumero} >
-                                            <Pressable onPress={() => setP(0)}>
+                                        <View  style={[styles.containeNumero, { backgroundColor: c == 0 && l == index ? 'green' : 'rgba(0,0,0,.8)' }]} >
+                                            <Pressable onPress={() => { setC(0); setL(index); }}>
                                                 <Text style={styles.texto}> {item[0]}  </Text>
                                             </Pressable>
                                         </View>
 
-                                        <View style={[styles.containeNumero, { backgroundColor: p == 1 ? 'green' : 'rgba(0,0,0,.8)' }]} >
-                                            <Pressable onPress={() => setP(1)}>
+                                        <View  style={[styles.containeNumero, { backgroundColor: c == 1 && l === index ? 'green' :   'rgba(0,0,0,.8)'  }]} >
+                                            <Pressable onPress={() => { setC(1); setL(index) }} >
                                                 <Text style={styles.texto}> {item[1]}  </Text>
                                             </Pressable>
                                         </View>
 
-                                        <View style={styles.containeNumero} >
-                                            <Pressable onPress={() => setP(2)}>
+                                        <View style={[styles.containeNumero, { backgroundColor: c == 2 && l === index ? 'green' : 'rgba(0,0,0,.8)' }]} >
+                                            <Pressable onPress={() => { setC(2); setL(index) }}>
                                                 <Text style={styles.texto}> {item[2]}  </Text>
                                             </Pressable>
                                         </View>
 
-                                        <View style={styles.containeNumero} >
-                                            <Pressable onPress={() => setP(3)}>
+                                        <View  style={[styles.containeNumero, { backgroundColor: c == 3 && l === index ? 'green' : 'rgba(0,0,0,.8)' }]} >
+                                            <Pressable onPress={() => { setC(3); setL(index) }}>
 
                                                 <Text style={styles.texto}> {item[3]}  </Text>
                                             </Pressable>
@@ -95,7 +104,7 @@ export default function App() {
 
                     <View style={styles.containerInput}>
 
-                        <Pressable style={styles.input} onPress={() => addLista(1)}>
+                        {/*    <Pressable style={styles.input} onPress={() => addLista(1)}>
                             <Text> 1 </Text>
                         </Pressable>
 
@@ -133,9 +142,16 @@ export default function App() {
 
                         <Pressable style={styles.input} onPress={() => addLista(0)}>
                             <Text> 0 </Text>
-                        </Pressable>
+                        </Pressable> */}
+
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((n) => (
+                            <Pressable key={n} style={styles.input} onPress={() => addLista(n)}>
+                                <Text> {n} </Text>
+                            </Pressable>
+                        ))}
                         <View>
-                            <Pressable style={styles.botao} onPress={()=> verificar()}>
+
+                            <Pressable style={styles.botao} onPress={() => verificar()}>
                                 <Text> verificar</Text>
                             </Pressable>
 
