@@ -5,9 +5,17 @@ import { useEffect, useState } from 'react';
 
 export default function App() {
 
+    const [nume, setNum] = useState([0, 0, 0, 0]);
+
+    useEffect(() => {
+        const novosNumeros = Array.from({ length: 4 }, () => Math.floor(Math.random() * 4));
+        setNum(novosNumeros)
+    }, [])
 
 
-    const [num, setNum] = useState([0, 0, 0, 0]);
+    console.log(nume)
+    const [p, setP] = useState()
+
     const [Lista, setLista] = useState([
         [``, '', '', ''],
         [``, '', '', ''],
@@ -16,27 +24,20 @@ export default function App() {
         [``, '', '', '']
     ]);
 
-    // const numero = [0,0,0,0]
-
-    /*  const addArray = (num) => {
- 
- 
-         const novoItem = {
-             valor: num
-         }
- 
-         const updateAray = [...Lista, novoItem];
-         setLista(updateAray);
- 
-         setNum('');
-     } */
 
     const addLista = (num) => {
 
-        
 
+        setLista(pre => {
+            const copia = pre.map(row => [...row]);
+            copia[0][p] = num;
+            return copia
+        })
     }
 
+    const verificar =()=> {
+
+    }
 
     return (
         <View style={styles.container}>
@@ -60,19 +61,28 @@ export default function App() {
 
 
                                         <View style={styles.containeNumero} >
-                                            <Text style={styles.texto}> {item[0]}  </Text>
+                                            <Pressable onPress={() => setP(0)}>
+                                                <Text style={styles.texto}> {item[0]}  </Text>
+                                            </Pressable>
+                                        </View>
+
+                                        <View style={[styles.containeNumero, { backgroundColor: p == 1 ? 'green' : 'rgba(0,0,0,.8)' }]} >
+                                            <Pressable onPress={() => setP(1)}>
+                                                <Text style={styles.texto}> {item[1]}  </Text>
+                                            </Pressable>
                                         </View>
 
                                         <View style={styles.containeNumero} >
-                                            <Text style={styles.texto}> {item[1]}  </Text>
+                                            <Pressable onPress={() => setP(2)}>
+                                                <Text style={styles.texto}> {item[2]}  </Text>
+                                            </Pressable>
                                         </View>
 
                                         <View style={styles.containeNumero} >
-                                            <Text style={styles.texto}> {item[2]}  </Text>
-                                        </View>
+                                            <Pressable onPress={() => setP(3)}>
 
-                                        <View style={styles.containeNumero} >
-                                            <Text style={styles.texto}> {item[3]}  </Text>
+                                                <Text style={styles.texto}> {item[3]}  </Text>
+                                            </Pressable>
                                         </View>
 
                                     </View>
@@ -85,30 +95,52 @@ export default function App() {
 
                     <View style={styles.containerInput}>
 
-                        <Pressable style={styles.input} onPress={addLista(1)}>
+                        <Pressable style={styles.input} onPress={() => addLista(1)}>
                             <Text> 1 </Text>
                         </Pressable>
 
-                        <Pressable style={styles.input} onPress={addLista(2)}>
+                        <Pressable style={styles.input} onPress={() => addLista(2)}>
                             <Text> 2 </Text>
                         </Pressable>
 
-                        <Pressable style={styles.input} onPress={addLista(3)}>
+                        <Pressable style={styles.input} onPress={() => addLista(3)}>
                             <Text> 3 </Text>
                         </Pressable>
 
-                        <Pressable style={styles.input} onPress={addLista(4)}>
+                        <Pressable style={styles.input} onPress={() => addLista(4)}>
                             <Text> 4 </Text>
                         </Pressable>
 
+                        <Pressable style={styles.input} onPress={() => addLista(5)}>
+                            <Text> 5 </Text>
+                        </Pressable>
+
+                        <Pressable style={styles.input} onPress={() => addLista(6)}>
+                            <Text> 6</Text>
+                        </Pressable>
+
+                        <Pressable style={styles.input} onPress={() => addLista(7)}>
+                            <Text> 7 </Text>
+                        </Pressable>
+
+                        <Pressable style={styles.input} onPress={() => addLista(8)}>
+                            <Text> 8 </Text>
+                        </Pressable>
+
+                        <Pressable style={styles.input} onPress={() => addLista(9)}>
+                            <Text> 9 </Text>
+                        </Pressable>
+
+                        <Pressable style={styles.input} onPress={() => addLista(0)}>
+                            <Text> 0 </Text>
+                        </Pressable>
+                        <View>
+                            <Pressable style={styles.botao} onPress={()=> verificar()}>
+                                <Text> verificar</Text>
+                            </Pressable>
+
+                        </View>
                     </View>
-                </View>
-                <View style={styles.teclado}>
-
-                    <Pressable style={styles.botao} onPress={() => addArray(num)}>
-                        <Text style={styles.veri}> verificar </Text>
-                    </Pressable>
-
                 </View>
             </View>
             <StatusBar style="auto" />

@@ -45,35 +45,32 @@ export default StyleSheet.create({
   },
 
   texto: {
-    
     color: 'white',
     fontSize: 40
   },
 
   containerInput: {
-    flex: 0.2,
+    flex: 0.5,
     borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
 
 
   input: {
-    height: 50,
-    width: 50,
+    margin: 5,
+    height: 60,
+    width: 60,
     backgroundColor: 'white',
     borderWidth: 1,
     fontSize: 30,
-  },
+    alignItems: 'center',
 
-  teclado: {
-    flex: 0.1,
-    borderWidth: 1
+    justifyContent: 'center',
   },
 
   botao: {
-    flex: 1,
+    padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'blue',
