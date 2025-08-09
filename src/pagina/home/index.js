@@ -38,7 +38,14 @@ export default function App() {
 
     const verificar = () => {
 
-       
+       for(var i = 0;i<=3;i++){
+            if(Lista[index][i] == nume[i] ){
+                console.log(`voce acertou a posicao ${i} ${index}`)
+                 nume[i]
+            } else {
+                console.log(` errou ${i} ${index}`)
+            }
+       }
 
 
         const novoIndex = index + 1;
