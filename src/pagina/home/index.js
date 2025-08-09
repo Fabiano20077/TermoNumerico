@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, TextInput, Pressable, FlatList } from 'react-native-web';
+import { View, Text, Pressable, FlatList } from 'react-native-web';
 import styles from './style';
 import { useEffect, useState } from 'react';
 
@@ -11,7 +11,6 @@ export default function App() {
         const novosNumeros = Array.from({ length: 4 }, () => Math.floor(Math.random() * 4));
         setNum(novosNumeros)
     }, [])
-
 
     console.log(nume)
     const [c, setC] = useState(0);
@@ -38,12 +37,15 @@ export default function App() {
 
     const verificar = () => {
 
+
        for(var i = 0;i<=3;i++){
             if(Lista[index][i] == nume[i] ){
                 console.log(`voce acertou a posicao ${i} ${index}`)
                  nume[i]
+            } else if(nume.includes(Lista[index][i]) ) {
+                console.log(` posicao errada ${i} ${index}`)
             } else {
-                console.log(` errou ${i} ${index}`)
+                console.log(` errado ${i} ${index} `)
             }
        }
 
@@ -76,7 +78,7 @@ console.log(c)
                                     <View style={styles.flat}>
 
 
-                                        <View  style={[styles.containeNumero, { backgroundColor: c == 0 && l == index ? 'green' : 'rgba(0,0,0,.8)' }]} >
+                                        <View  style={[styles.containeNumero ]} >
                                             <Pressable onPress={() => { setC(0); setL(index); }}>
                                                 <Text style={styles.texto}> {item[0]}  </Text>
                                             </Pressable>
