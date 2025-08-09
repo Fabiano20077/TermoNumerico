@@ -13,12 +13,15 @@ export default function App() {
     }, [])
 
     console.log(nume)
+    const [cores, setCores] = useState(
+        Array(5).fill(null).map(() => Array(4).fill('rgba(0,0,0,.8)'))
+    );
     const [c, setC] = useState(0);
     const [l, setL] = useState(0);
-   const [index,setIndex] = useState(0);
+    const [index, setIndex] = useState(0);
 
     const [Lista, setLista] = useState([
-        [``, '', '', ''],
+        ['', '', '', ''],
         [``, '', '', ''],
         [``, '', '', ''],
         [``, '', '', ''],
@@ -37,26 +40,34 @@ export default function App() {
 
     const verificar = () => {
 
+        setCores(prev => {
 
-       for(var i = 0;i<=3;i++){
-            if(Lista[index][i] == nume[i] ){
-                console.log(`voce acertou a posicao ${i} ${index}`)
-                 nume[i]
-            } else if(nume.includes(Lista[index][i]) ) {
-                console.log(` posicao errada ${i} ${index}`)
-            } else {
-                console.log(` errado ${i} ${index} `)
+            const copia = prev.map(row => [...row])
+
+            for (var i = 0; i <= 3; i++) {
+                if (Lista[index][i] == nume[i]) {
+                    console.log(`voce acertou a posicao ${i} ${index}`)
+                    copia[index][i] = 'green';
+                    copia[index][i] = 'green';
+                } else if (nume.includes(Lista[index][i])) {
+                    console.log(` posicao errada ${i} ${index}`)
+                    copia[index][i] = 'orange';
+                } else {
+                    console.log(` errado ${i} ${index} `)
+                    copia[index][i] = 'rgba(0,0,0,.8)';
+                }
             }
-       }
+            return copia;
 
+        })
 
         const novoIndex = index + 1;
-        
+
         setIndex(novoIndex);
         console.log(index)
     }
-console.log(l)
-console.log(c)
+    console.log(l)
+    console.log(c)
     return (
         <View style={styles.container}>
             <View style={styles.Campo}>
@@ -73,30 +84,30 @@ console.log(c)
                                 data={Lista}
                                 keyExtractor={(_, index) => index.toString()}
                                 contentContainerStyle={{ padding: 20 }}
-                                renderItem={({ item }) => (
+                                renderItem={({ item, index: indexItem }) => (
 
                                     <View style={styles.flat}>
 
 
-                                        <View  style={[styles.containeNumero ]} >
-                                            <Pressable onPress={() => { setC(0); setL(index); }}>
+                                        <View style={[styles.containeNumero,{ backgroundColor: cores[indexItem][0]}]} >
+                                            <Pressable onPress={() => { setC(0); setL(indexItem); }}>
                                                 <Text style={styles.texto}> {item[0]}  </Text>
                                             </Pressable>
                                         </View>
 
-                                        <View  style={[styles.containeNumero, { backgroundColor: c == 1 && l === index ? 'green' :   'rgba(0,0,0,.8)'  }]} >
+                                        <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][1]} ]} >
                                             <Pressable onPress={() => { setC(1); setL(index) }} >
                                                 <Text style={styles.texto}> {item[1]}  </Text>
                                             </Pressable>
                                         </View>
 
-                                        <View style={[styles.containeNumero, { backgroundColor: c == 2 && l === index ? 'green' : 'rgba(0,0,0,.8)' }]} >
+                                        <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][2] }]} >
                                             <Pressable onPress={() => { setC(2); setL(index) }}>
                                                 <Text style={styles.texto}> {item[2]}  </Text>
                                             </Pressable>
                                         </View>
 
-                                        <View  style={[styles.containeNumero, { backgroundColor: c == 3 && l === index ? 'green' : 'rgba(0,0,0,.8)' }]} >
+                                        <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][3] }]} >
                                             <Pressable onPress={() => { setC(3); setL(index) }}>
 
                                                 <Text style={styles.texto}> {item[3]}  </Text>
