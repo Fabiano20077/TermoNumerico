@@ -14,8 +14,8 @@ export default StyleSheet.create({
 
   containerTitulo: {
     alignItems: 'center',
-    justifyContent: 'center',
     height: 60,
+    flexDirection: 'row'
 
   },
 
@@ -109,7 +109,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderWidth: 1
+
   },
 
   TituloModal: {
@@ -119,32 +119,33 @@ export default StyleSheet.create({
 
   containerTexto: {
     padding: 20,
-    borderWidth: 1,
     textAlign: 'center'
   },
 
   textoModal: {
     flex: 1,
-    borderWidth: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    textAlign: 'center'
   },
 
 
   texto3: {
     fontSize: 40,
     fontWeight: 'bold',
-    color: 'white'
+    color: 'white',
+    textAlign: 'center'
   },
 
   botaoModal: {
     padding: 20,
     backgroundColor: 'rgba(0,0,0,.4)',
-    borderWidth: 1
   },
 
-
-
-
+  veri2: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20
+  },
 
 });

@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "termoNumerico",
+    "name": "termo Numerico",
     "slug": "termoNumerico",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/T.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {

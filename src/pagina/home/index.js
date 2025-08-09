@@ -1,9 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, Pressable, FlatList, Modal } from 'react-native';
+import { View, Text, Pressable, FlatList, Modal, Image } from 'react-native';
 import styles from './style';
 import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export default function App() {
+
+    const navigation = useNavigation()
 
     //numero aleatorio
 
@@ -86,8 +89,8 @@ export default function App() {
 
             if (copia.flat().filter(x => x == 'green').length >= 4) {
                 setTM('voce venceu'),
-                setTM2('vitoria')
-                    setmodal(true)
+                    setTM2('vitoria')
+                setmodal(true)
             } else {
 
                 const novoIndex = index + 1;
@@ -116,6 +119,11 @@ export default function App() {
             <StatusBar style="auto" />
             <View style={styles.Campo}>
                 <View style={styles.containerTitulo}>
+                    <View style={{ paddingRight: 5, paddingLeft: 20 }}>
+                        <Pressable onPress={()=> navigation.navigate('Inicio')}>
+                            <Image source={require('../../../assets/casaB.png')} />
+                        </Pressable>
+                    </View>
                     <Text style={styles.Titulo}> Termo Numerico</Text>
                 </View>
 
@@ -239,8 +247,8 @@ export default function App() {
                             <Text style={styles.texto3}> {tM2} </Text>
                         </View>
 
-                        <Pressable style={styles.botaoModal} onPress={() => reiniciar()}>
-                            <Text> opa </Text>
+                        <Pressable style={styles.botao} onPress={() => reiniciar()}>
+                            <Text style={styles.veri2}> Reiniciar jogo </Text>
                         </Pressable>
 
                     </View>
