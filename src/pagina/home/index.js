@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, Pressable, FlatList, Modal, Image } from 'react-native';
+import { View, Text, Pressable, FlatList, Modal, Image, SafeAreaView } from 'react-native';
 import styles from './style';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 
 export default function App() {
 
@@ -62,10 +64,10 @@ export default function App() {
 
     const verificar = () => {
 
-        /*  if (Lista[index].includes('')) {
-             alert('erraddooo')
-             return false
-         } */
+        if (Lista[index].includes('')) {
+            alert('erraddooo')
+            return false
+        }
 
         setCores(prev => {
 
@@ -87,10 +89,12 @@ export default function App() {
             }
 
 
-            if (copia.flat().filter(x => x == 'green').length >= 4) {
+            if (copia[index].flat().filter(x => x == 'green').length >= 4) {
+
                 setTM('voce venceu'),
                     setTM2('vitoria')
                 setmodal(true)
+
             } else {
 
                 const novoIndex = index + 1;
@@ -99,6 +103,8 @@ export default function App() {
                 setContador(contador + 1)
 
                 if (contador >= 5) {
+                     setTM('voce perdeu'),
+                     setTM2('Tentativa')
                     setmodal(true)
                 }
             }
@@ -115,67 +121,69 @@ export default function App() {
         sortea()
     }
     return (
-        <View style={styles.container}>
-            <StatusBar style="auto" />
-            <View style={styles.Campo}>
-                <View style={styles.containerTitulo}>
-                    <View style={{ paddingRight: 5, paddingLeft: 20 }}>
-                        <Pressable onPress={()=> navigation.navigate('Inicio')}>
-                            <Image source={require('../../../assets/casaB.png')} />
-                        </Pressable>
+        <SafeAreaProvider>
+
+            <SafeAreaView style={styles.container}>
+                <StatusBar style="auto" />
+                <View style={styles.Campo}>
+                    <View style={styles.containerTitulo}>
+                        <View style={{ paddingRight: 5, paddingLeft: 20 }}>
+                            <Pressable onPress={() => navigation.navigate('Inicio')}>
+                                <Image source={require('../../../assets/casaB.png')} />
+                            </Pressable>
+                        </View>
+                        <Text style={styles.Titulo}> Termo Numerico</Text>
                     </View>
-                    <Text style={styles.Titulo}> Termo Numerico</Text>
-                </View>
 
-                <View style={styles.numero}>
+                    <View style={styles.numero}>
 
 
 
-                    <FlatList
-                        data={Lista}
-                        keyExtractor={(_, index) => index.toString()}
-                        renderItem={({ item, index: indexItem }) => (
+                        <FlatList
+                            data={Lista}
+                            keyExtractor={(_, index) => index.toString()}
+                            renderItem={({ item, index: indexItem }) => (
 
-                            <View style={styles.flat}>
+                                <View style={styles.flat}>
 
 
-                                <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][0] }]} >
-                                    <Pressable onPress={() => { setC(0); setL(indexItem); }}>
-                                        <Text style={styles.texto}> {item[0]}  </Text>
-                                    </Pressable>
+                                    <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][0] }]} >
+                                        <Pressable onPress={() => { setC(0); setL(indexItem); }}>
+                                            <Text style={styles.texto}> {item[0]}  </Text>
+                                        </Pressable>
+                                    </View>
+
+                                    <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][1] }]} >
+                                        <Pressable onPress={() => { setC(1); setL(index) }} >
+                                            <Text style={styles.texto}> {item[1]}  </Text>
+                                        </Pressable>
+                                    </View>
+
+                                    <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][2] }]} >
+                                        <Pressable onPress={() => { setC(2); setL(index) }}>
+                                            <Text style={styles.texto}> {item[2]}  </Text>
+                                        </Pressable>
+                                    </View>
+
+                                    <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][3] }]} >
+                                        <Pressable onPress={() => { setC(3); setL(index) }}>
+
+                                            <Text style={styles.texto}> {item[3]}  </Text>
+                                        </Pressable>
+                                    </View>
+
+
                                 </View>
 
-                                <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][1] }]} >
-                                    <Pressable onPress={() => { setC(1); setL(index) }} >
-                                        <Text style={styles.texto}> {item[1]}  </Text>
-                                    </Pressable>
-                                </View>
-
-                                <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][2] }]} >
-                                    <Pressable onPress={() => { setC(2); setL(index) }}>
-                                        <Text style={styles.texto}> {item[2]}  </Text>
-                                    </Pressable>
-                                </View>
-
-                                <View style={[styles.containeNumero, { backgroundColor: cores[indexItem][3] }]} >
-                                    <Pressable onPress={() => { setC(3); setL(index) }}>
-
-                                        <Text style={styles.texto}> {item[3]}  </Text>
-                                    </Pressable>
-                                </View>
+                            )}
+                        />
 
 
-                            </View>
+                    </View>
 
-                        )}
-                    />
+                    <View style={styles.containerInput}>
 
-
-                </View>
-
-                <View style={styles.containerInput}>
-
-                    {/*    <Pressable style={styles.input} onPress={() => addLista(1)}>
+                        {/*    <Pressable style={styles.input} onPress={() => addLista(1)}>
                             <Text> 1 </Text>
                         </Pressable>
 
@@ -215,49 +223,49 @@ export default function App() {
                             <Text> 0 </Text>
                         </Pressable> */}
 
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((n) => (
-                        <Pressable key={n} style={[styles.input]} onPress={() => addLista(n)}>
-                            <Text style={styles.texto2}> {n} </Text>
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((n) => (
+                            <Pressable key={n} style={[styles.input]} onPress={() => addLista(n)}>
+                                <Text style={styles.texto2}> {n} </Text>
+                            </Pressable>
+
+                        ))}
+
+                        <Pressable style={styles.botao} onPress={() => verificar()}>
+                            <Text style={styles.veri}> Verificar</Text>
                         </Pressable>
 
-                    ))}
-
-                    <Pressable style={styles.botao} onPress={() => verificar()}>
-                        <Text style={styles.veri}> Verificar</Text>
-                    </Pressable>
+                    </View>
 
                 </View>
 
-            </View>
+                <Modal transparent={true} visible={modal}>
 
-            <Modal transparent={true} visible={modal}>
+                    <View style={styles.containerModal}>
+                        <View style={styles.containerTituloModal}>
 
-                <View style={styles.containerModal}>
-                    <View style={styles.containerTituloModal}>
+                            <Text style={styles.TituloModal}> {tM}</Text>
 
-                        <Text style={styles.TituloModal}> {tM}</Text>
-
-                    </View>
-                    <View style={styles.textoModal}>
-
-                        <View style={styles.containerTexto}>
-
-                            <Text style={styles.texto3}> parabens </Text>
-                            <Text style={styles.texto3} > pela </Text>
-                            <Text style={styles.texto3}> {tM2} </Text>
                         </View>
+                        <View style={styles.textoModal}>
 
-                        <Pressable style={styles.botao} onPress={() => reiniciar()}>
-                            <Text style={styles.veri2}> Reiniciar jogo </Text>
-                        </Pressable>
+                            <View style={styles.containerTexto}>
 
+                                <Text style={styles.texto3}> parabens </Text>
+                                <Text style={styles.texto3} > pela </Text>
+                                <Text style={styles.texto3}> {tM2} </Text>
+                            </View>
+
+                            <Pressable style={styles.botao} onPress={() => reiniciar()}>
+                                <Text style={styles.veri2}> Reiniciar jogo </Text>
+                            </Pressable>
+
+                        </View>
                     </View>
-                </View>
 
-            </Modal>
+                </Modal>
 
-        </View>
-
+            </SafeAreaView>
+        </SafeAreaProvider>
 
 
     );
